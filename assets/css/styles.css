@@ -298,6 +298,15 @@ a:hover { color: var(--pink-hover); }
 .nf-info b { display: block; font: 700 13px/18px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; }
 .nf-info span { color: var(--ink-muted); font-size: 15px; line-height: 22px; }
 
+/* ---------- Legal pages ---------- */
+.nf-prose > * { max-width: 760px; }
+.nf-prose h2 { font: italic 800 28px/1.1 var(--font-display); text-transform: uppercase; margin: var(--space-12) 0 var(--space-3); }
+.nf-prose h2:first-of-type { margin-top: 0; }
+.nf-prose p, .nf-prose li { color: var(--ink-muted); }
+.nf-prose b { color: var(--ink); }
+.nf-prose ul { padding-left: 20px; display: grid; gap: var(--space-2); }
+.nf-placeholder { background: var(--pink-soft); color: var(--pink-text); border: 1px dashed var(--pink); border-radius: 4px; padding: 0 6px; font-weight: 700; }
+
 /* ---------- Footer + floating button ---------- */
 .nf-footer { background: var(--bg); border-top: 1px solid var(--line); padding: var(--space-12) var(--space-8) 96px; }
 .nf-footer-in { display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
