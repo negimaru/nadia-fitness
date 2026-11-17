@@ -30,7 +30,7 @@ Para probar en local: `python3 -m http.server` en esta carpeta y abre `http://lo
 
 - Aviso legal y Privacidad (`/aviso-legal/`, `/privacidad/`): rellenar titular, NIF y email (resaltados en la página) y quitar el `noindex` de ambas. Añadirlas al `sitemap.xml`.
 - Texto de «Quién soy» en la portada: sustituir por las palabras de Nadia (hay un `TODO`). La cifra de reseñas (5,0 · 29) es fija: actualizarla de vez en cuando.
-- Fotos reales: los huecos `.nf-photo` llevan un comentario `TODO`; mete un `<img>` dentro y se encaja solo.
+- Fotos reales de Dance Baby, Intermedio, Avanzado, PowerHIIT y Aquafitness: ahora son imágenes de muestra en `assets/img/clases/<clase>.webp`. Para poner la foto real, sustituye el archivo por uno con el mismo nombre (WebP, ~1200×750, horizontal; el encuadre se hace solo).
 - Logo: `assets/img/logo.png` (PNG con fondo transparente). Si tenéis el original en SVG o en mayor resolución, sustituidlo.
 - Confirmar que el 654 691 336 tiene WhatsApp (botón flotante y formulario usan `wa.me/34654691336`).
 
@@ -41,3 +41,4 @@ La tienda está desactivada: no aparece en el menú, el pie, la portada ni el si
 ## Privacidad y terceros
 
 La web no carga nada de terceros: las fuentes están en `assets/fonts/` y el mapa de contacto es una imagen fija (`assets/img/mapa.webp`, © OpenStreetMap) que enlaza a Google Maps. Por eso no necesita banner de cookies. Si se añade algo externo (analítica, mapas embebidos, vídeos), revisar `/privacidad/`.
+- `tools/make_placeholders.py`: regenera las imágenes de muestra de las clases.
