@@ -61,7 +61,7 @@
     });
   }
 
-  // Horario: botones para resaltar las horas de cada clase
+  // Horario: botones por clase (resaltan en la tabla) + vista por días en el móvil
   var CLASES = [
     ['dance-baby', 'Dance Baby', 'k-dance'],
     ['dance-intermedio', 'Dance Intermedio', 'k-dance'],
@@ -71,20 +71,143 @@
     ['powerhiit', 'PowerHIIT', 'k-fit'],
     ['aquafitness', 'Aquafitness', 'k-fit']
   ];
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function mins(t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
+
   Array.prototype.forEach.call(document.querySelectorAll('.nf-filter'), function (bar) {
     var scroll = bar.nextElementSibling;
     var table = scroll && scroll.querySelector('.nf-schedule');
     if (!table) return;
     var cells = table.querySelectorAll('td[data-c]');
-    var status = document.createElement('p');
-    status.className = 'sr-only';
-    status.setAttribute('aria-live', 'polite');
-    var group = document.createElement('div');
-    group.className = 'nf-picks';
+    var clasesLink = document.querySelector('.nf-nav a[href$="clases/"]');
+    var clasesHref = clasesLink ? clasesLink.getAttribute('href') : 'clases/';
+
+    // Datos leídos de la propia tabla
+    var days = Array.prototype.map.call(table.querySelectorAll('thead th'), function (th) { return th.textContent.trim(); }).slice(1);
+    var sessions = [];
+    var slot = '', slotLeft = 0;
+    Array.prototype.forEach.call(table.tBodies[0].rows, function (tr) {
+      var th = tr.querySelector('th');
+      if (th) { slot = th.textContent.trim(); slotLeft = +(th.getAttribute('rowspan') || 1); }
+      Array.prototype.forEach.call(tr.querySelectorAll('td'), function (td, i) {
+        if (!td.hasAttribute('data-c')) return;
+        var m = (td.querySelector('time') || td).textContent.match(/(\d{1,2}:\d{2})\D+(\d{1,2}:\d{2})/);
+        var small = td.querySelector('small');
+        sessions.push({
+          day: i, slot: slot, c: td.getAttribute('data-c'),
+          type: td.classList.contains('k-fit') ? 'k-fit' : 'k-dance',
+          name: td.querySelector('b').textContent, desc: small ? small.textContent : '',
+          start: m ? m[1] : '', end: m ? m[2] : ''
+        });
+      });
+    });
+    sessions.sort(function (x, y) { return mins(x.start) - mins(y.start); });
+
+    // Botones por clase
+    var status = el('p', 'sr-only'); status.setAttribute('aria-live', 'polite');
+    var group = el('div', 'nf-picks');
     group.setAttribute('role', 'group');
-    group.setAttribute('aria-label', 'Resaltar en el horario');
+    group.setAttribute('aria-label', 'Filtrar el horario por clase');
+    var current = '';
+
+    // Vista móvil: pestañas por día + lista
+    var agenda = el('div', 'nf-agenda');
+    var tabs = el('div', 'nf-days'); tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', 'Día de la semana');
+    var panel = el('div', 'nf-apanel'); panel.setAttribute('role', 'tabpanel'); panel.id = 'nf-apanel-' + Math.random().toString(36).slice(2, 7);
+    var today = new Date().getDay(); // 0 domingo … 6 sábado
+    var todayIdx = today >= 1 && today <= days.length ? today - 1 : -1;
+    var day = todayIdx >= 0 ? todayIdx : 0;
+    var tabBtns = days.map(function (d, i) {
+      var n = sessions.filter(function (s) { return s.day === i; }).length;
+      var t = el('button', 'nf-day');
+      t.type = 'button'; t.id = panel.id + '-t' + i;
+      t.setAttribute('role', 'tab'); t.setAttribute('aria-controls', panel.id);
+      t.appendChild(el('b', null, d.slice(0, 3)));
+      t.appendChild(el('span', null, i === todayIdx ? 'Hoy' : n + (n === 1 ? ' clase' : ' clases')));
+      t.addEventListener('click', function () { day = i; if (current) select('', ''); else render(); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!k) return;
+        e.preventDefault(); go(k); tabBtns[day].focus();
+      });
+      tabs.appendChild(t);
+      return t;
+    });
+    agenda.appendChild(tabs); agenda.appendChild(panel);
+
+    function go(k) {
+      if (current) return;
+      day = (day + k + days.length) % days.length; render();
+    }
+
+    function card(s, label) {
+      var a = el('a', 'nf-acard ' + s.type);
+      a.href = clasesHref + '#' + s.c;
+      var t = el('div', 'nf-atime');
+      t.appendChild(el('b', null, s.start));
+      t.appendChild(el('span', null, s.end));
+      var info = el('div', 'nf-ainfo');
+      if (label) info.appendChild(el('em', null, label));
+      info.appendChild(el('b', null, s.name));
+      var meta = (s.desc ? s.desc + ' · ' : '') + (mins(s.end) - mins(s.start)) + ' min';
+      info.appendChild(el('small', null, meta));
+      a.appendChild(t); a.appendChild(info);
+      a.appendChild(el('i', null, '›')).setAttribute('aria-hidden', 'true');
+      a.setAttribute('aria-label', (label ? label + ', ' : '') + s.name + ', de ' + s.start + ' a ' + s.end + '. Ver clase');
+      return a;
+    }
+
+    function render() {
+      panel.innerHTML = '';
+      agenda.classList.toggle('is-class', !!current);
+      tabBtns.forEach(function (t, i) {
+        var has = current && sessions.some(function (s) { return s.day === i && s.c === current; });
+        t.setAttribute('aria-selected', String(!current && i === day));
+        t.tabIndex = !current && i === day ? 0 : -1;
+        t.classList.toggle('has-class', !!has);
+      });
+      var list, groupKey;
+      if (current) {
+        list = sessions.filter(function (s) { return s.c === current; })
+          .sort(function (x, y) { return x.day - y.day || mins(x.start) - mins(y.start); });
+        groupKey = function (s) { return days[s.day]; };
+        panel.removeAttribute('aria-labelledby');
+        panel.setAttribute('aria-label', 'Semana de ' + list[0].name);
+      } else {
+        list = sessions.filter(function (s) { return s.day === day; });
+        groupKey = function (s) { return s.slot; };
+        panel.removeAttribute('aria-label');
+        panel.setAttribute('aria-labelledby', tabBtns[day].id);
+      }
+      if (!list.length) { panel.appendChild(el('p', 'nf-aempty', 'No hay clases este día.')); return; }
+      var last = null, ol;
+      list.forEach(function (s) {
+        var g = groupKey(s);
+        if (g !== last) {
+          panel.appendChild(el('h3', 'nf-agroup', g));
+          ol = el('ul', 'nf-alist'); panel.appendChild(ol); last = g;
+        }
+        var li = el('li'); li.appendChild(card(s)); ol.appendChild(li);
+      });
+    }
+
+    // Deslizar a izquierda/derecha para cambiar de día
+    var x0 = null, y0 = 0;
+    panel.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    panel.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+    });
 
     function select(slug, label) {
+      current = slug;
       var n = 0;
       Array.prototype.forEach.call(cells, function (td) {
         var on = !!slug && td.getAttribute('data-c') === slug;
@@ -96,14 +219,13 @@
         b.setAttribute('aria-pressed', String(b.getAttribute('data-c') === (slug || '')));
       });
       status.textContent = slug ? label + ': ' + n + (n === 1 ? ' sesión' : ' sesiones') + ' a la semana' : 'Mostrando todas las clases';
+      render();
     }
 
     function chip(slug, label, type) {
-      var b = document.createElement('button');
+      var b = el('button', 'nf-pick' + (type ? ' ' + type : ''), label);
       b.type = 'button';
-      b.className = 'nf-pick' + (type ? ' ' + type : '');
       b.setAttribute('data-c', slug);
-      b.textContent = label;
       b.addEventListener('click', function () {
         var active = b.getAttribute('aria-pressed') === 'true';
         select(active || !slug ? '' : slug, label);
@@ -118,6 +240,8 @@
     bar.appendChild(group);
     bar.appendChild(status);
     bar.hidden = false;
+    scroll.parentNode.insertBefore(agenda, scroll.nextSibling);
+    scroll.parentNode.classList.add('has-agenda');
     select('');
     status.textContent = '';
   });
