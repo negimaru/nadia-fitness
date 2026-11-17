@@ -8,7 +8,6 @@
   --rosa: #f20085; --on-rosa: #ffffff; --rosa-texto: #ff4fa8; --rosa-claro: #f05492; --on-rosa-claro: #000000; --rosa-suave: #2e0a1f;
   --morado: #84006c; --on-morado: #ffffff; --violeta: #c77dbf;
   --pastilla: #ddd9d9; --on-pastilla: #141014; --focus: #ff4fa8;
-  --tabla: #ffffff; --tabla-tinta: #141014; --tabla-tinta-suave: #5c5058; --tabla-baile: #ffe3f1; --tabla-fitness: #f3e6f2;
   --negro: #000000; --blanco: #ffffff;
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-sans: "Montserrat", system-ui, sans-serif;
@@ -130,18 +129,32 @@ a:hover { color: #ff7cbd; }
 
 /* ---------- Horario ---------- */
 .nf-sched-scroll { overflow-x: auto; border-radius: var(--radius-lg); }
-.nf-sched-wrap { background: var(--tabla); border-radius: var(--radius-lg); overflow: hidden; min-width: 820px; }
-.nf-schedule { width: 100%; border-collapse: collapse; background: var(--tabla); color: var(--tabla-tinta); table-layout: fixed; }
+.nf-sched-wrap { background: linear-gradient(180deg, var(--superficie), var(--fondo-alt)); border: 1px solid var(--linea); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-4) var(--space-3); min-width: 860px; }
+.nf-schedule { width: 100%; border-collapse: separate; border-spacing: 6px; color: var(--tinta); table-layout: fixed; }
 .nf-schedule caption { text-align: left; }
-.nf-schedule thead th { background: var(--rosa-claro); color: var(--on-rosa-claro); font: 700 14px/18px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; padding: 12px 8px; border: 1px solid var(--tabla-tinta); }
-.nf-schedule th.k-slot, .nf-schedule thead th:first-child { background: var(--rosa-claro); color: var(--on-rosa-claro); width: 96px; font: 700 12px/16px var(--font-sans); text-transform: uppercase; border: 1px solid var(--tabla-tinta); }
-.nf-schedule td { border: 1px solid var(--tabla-tinta); padding: 10px 8px; text-align: center; vertical-align: middle; font: 600 13px/17px var(--font-sans); text-transform: uppercase; height: 54px; }
-.nf-schedule td small { display: block; font: 500 12px/16px var(--font-sans); text-transform: none; color: var(--tabla-tinta-suave); margin-top: 2px; }
-.nf-schedule .k-dance { background: var(--tabla-baile); }
-.nf-schedule .k-fit { background: var(--tabla-fitness); }
+.nf-schedule thead th { font: italic 800 22px/1 var(--font-display); letter-spacing: .02em; text-transform: uppercase; color: var(--tinta); padding: 6px 4px 14px; text-align: left; border-bottom: 2px solid var(--linea); }
+.nf-schedule thead th:first-child { width: 92px; border-bottom-color: transparent; }
+.nf-schedule th.k-slot { font: 700 11px/14px var(--font-sans); letter-spacing: .18em; text-transform: uppercase; color: var(--rosa-texto); text-align: left; vertical-align: middle; padding: 0 8px 0 4px; border-right: 2px solid var(--linea); }
+.nf-schedule td { border-radius: 12px; padding: 12px 14px 12px 16px; text-align: left; vertical-align: top; height: 76px; position: relative; transition: transform .15s ease, box-shadow .15s ease; }
+.nf-schedule td::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 0 3px 3px 0; }
+.nf-schedule td time { display: block; font: 600 12px/16px var(--font-sans); letter-spacing: .04em; font-variant-numeric: tabular-nums; margin-bottom: 4px; }
+.nf-schedule td b { display: block; font: 700 14px/18px var(--font-sans); color: var(--tinta); }
+.nf-schedule td small { display: block; font: 500 12px/16px var(--font-sans); color: var(--tinta-suave); margin-top: 2px; }
+.nf-schedule .k-dance { background: rgba(242,0,133,.12); }
+.nf-schedule .k-dance::before { background: var(--rosa); box-shadow: 0 0 10px rgba(242,0,133,.7); }
+.nf-schedule .k-dance time { color: var(--rosa-texto); }
+.nf-schedule .k-fit { background: rgba(199,125,191,.12); }
+.nf-schedule .k-fit::before { background: var(--violeta); box-shadow: 0 0 10px rgba(199,125,191,.6); }
+.nf-schedule .k-fit time { color: var(--violeta); }
+.nf-schedule .k-empty { background: transparent; border: 1px dashed rgba(255,255,255,.07); }
+.nf-schedule .k-empty::before { content: none; }
+.nf-schedule th.k-slot, .nf-schedule thead th:first-child { position: sticky; left: 0; z-index: 1; background: var(--superficie); }
+@media (hover: hover) { .nf-schedule .k-dance:hover, .nf-schedule .k-fit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.45); } }
 .nf-legend { display: flex; gap: var(--space-4); align-items: center; }
 .nf-legend span { display: inline-flex; gap: var(--space-2); align-items: center; }
-.nf-legend i { width: 18px; height: 18px; border-radius: 4px; display: inline-block; }
+.nf-legend i { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.nf-legend i.k-dance { background: var(--rosa); box-shadow: 0 0 8px rgba(242,0,133,.7); }
+.nf-legend i.k-fit { background: var(--violeta); box-shadow: 0 0 8px rgba(199,125,191,.6); }
 
 /* ---------- Horario de llamadas ---------- */
 .nf-calls { display: grid; gap: var(--space-2); max-width: 420px; margin: 0; }
