@@ -9,7 +9,7 @@
   function stored() { try { return localStorage.getItem('nf-theme'); } catch (e) { return null; } }
   function applyTheme(t) {
     root.setAttribute('data-theme', t);
-    if (meta) meta.setAttribute('content', t === 'light' ? '#fff8fb' : '#050505');
+    if (meta) meta.setAttribute('content', t === 'light' ? '#fff8fb' : '#161215');
     Array.prototype.forEach.call(document.querySelectorAll('.nf-theme'), function (b) {
       b.setAttribute('aria-label', t === 'light' ? 'Cambiar a modo noche' : 'Cambiar a modo día');
       b.setAttribute('title', t === 'light' ? 'Modo noche' : 'Modo día');

@@ -3,7 +3,7 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  --bg: #050505; --bg-alt: #120a11; --surface: #1a1219; --line: #3a2a36;
+  --bg: #161215; --bg-alt: #1D171B; --surface: #252025; --line: #3D3239;
   --ink: #ffffff; --ink-muted: #bfb8bc;
   --pink: #C92C7A; --on-pink: #ffffff; --pink-text: #F06AAE; --pink-light: #f05492; --on-pink-light: #000000; --pink-soft: #2e0a1f;
   --purple: #84006c; --on-purple: #ffffff; --violet: #c77dbf;
@@ -73,8 +73,8 @@ a:hover { color: var(--pink-hover); }
 
 /* ---------- Typography ---------- */
 .nf-d { font-family: var(--font-display); font-weight: 800; font-style: italic; text-transform: uppercase; margin: 0; }
-.nf-h1 { font-size: 96px; line-height: .9; }
-.nf-h2 { font-size: 64px; line-height: .95; }
+.nf-h1 { font-size: 96px; line-height: 1.02; }
+.nf-h2 { font-size: 64px; line-height: 1.05; }
 .nf-h3 { font-size: 32px; line-height: 1; }
 .nf-pink { color: var(--pink); }
 .nf-eyebrow { font: 700 14px/18px var(--font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--pink-text); margin: 0 0 var(--space-3); }
