@@ -145,6 +145,10 @@ a:hover { color: var(--pink-hover); }
 .nf-page-hero .nf-wrap { position: relative; }
 
 /* ---------- Sections ---------- */
+.nf-banner-wrap { padding: 0 var(--space-8); }
+.nf-banner { margin: 0; border-radius: var(--radius-lg); overflow: hidden; }
+.nf-banner img { display: block; width: 100%; aspect-ratio: 16 / 5; object-fit: cover; object-position: 50% 40%; }
+@media (max-width: 800px) { .nf-banner-wrap { padding: 0 var(--space-4); } .nf-banner img { aspect-ratio: auto; } }
 .nf-hero-tags { margin-top: var(--space-6); }
 .nf-toolbar { justify-content: space-between; margin-bottom: var(--space-6); }
 .nf-jump { margin-bottom: var(--head-gap); }
