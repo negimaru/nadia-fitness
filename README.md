@@ -30,7 +30,7 @@ Para probar en local: `python3 -m http.server` en esta carpeta y abre `http://lo
 - Dirección exacta (contacto + JSON-LD) y el mapa: sustituye el iframe por el de Google Maps → Compartir → Insertar mapa.
 - URLs de Instagram y TikTok, Aviso legal y Privacidad.
 - Fotos reales: los huecos `.nf-photo` llevan un comentario `TODO`; mete un `<img>` dentro y se encaja solo.
-- Logo original (SVG/PNG): ahora se usa el nombre en texto (`.nf-logo`).
+- Logo: `assets/img/logo.png` (PNG con fondo transparente). Si tenéis el original en SVG o en mayor resolución, sustituidlo.
 - Confirmar que el 654 691 336 tiene WhatsApp (botón flotante y formulario usan `wa.me/34654691336`).
 - Quitar el bloque del sorteo en `/tienda/` cuando termine.
 - Cookies: el mapa de Google y Google Fonts cargan recursos de terceros; si no queréis banner, auto-alojad las fuentes y cambiad el mapa por una imagen con enlace.
