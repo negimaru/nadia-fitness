@@ -271,10 +271,14 @@ a:hover { color: var(--pink-hover); }
 .nf-time { display: block; background: var(--pill); color: var(--on-pill); border-radius: var(--radius-sm); padding: 6px 12px; text-align: center; font: italic 800 22px/1 var(--font-display); }
 
 /* ---------- Steps ---------- */
-.nf-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin: 0; padding: 0; list-style: none; }
-.nf-step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-3); }
-.nf-step p { margin: 0; color: var(--ink-muted); }
-.nf-num { font: italic 800 64px/1 var(--font-display); color: var(--pink); }
+.nf-section-tight { padding-top: 64px; padding-bottom: 64px; }
+.nf-h2-sm { font-size: 40px; }
+.nf-steps-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--space-12); align-items: start; }
+.nf-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); margin: 0; padding: 0; list-style: none; }
+.nf-step { border-top: 1px solid var(--line); padding-top: var(--space-4); display: flex; flex-direction: column; gap: 6px; }
+.nf-step p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 22px; }
+.nf-num { font: 700 12px/1 var(--font-sans); letter-spacing: .14em; color: var(--pink-text); }
+.nf-step-title { margin: 0; font: 700 17px/24px var(--font-sans); color: var(--ink); }
 
 /* ---------- Shop ---------- */
 .nf-shop { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
@@ -344,13 +348,16 @@ a:hover { color: var(--pink-hover); }
   .nf-class .nf-photo { min-height: 200px; }
 }
 @media (max-width: 800px) {
-  .nf-hero-in, .nf-contact, .nf-promo, .nf-shop, .nf-steps, .nf-info, .nf-cta, .nf-about { grid-template-columns: 1fr; }
+  .nf-hero-in, .nf-contact, .nf-promo, .nf-shop, .nf-steps, .nf-steps-wrap, .nf-info, .nf-cta, .nf-about { grid-template-columns: 1fr; }
+  .nf-steps-wrap, .nf-steps { gap: var(--space-6); }
+  .nf-h2-sm { font-size: 32px; }
   .nf-about { gap: var(--space-8); }
   .nf-about-photo { aspect-ratio: 1 / 1; }
   .nf-hero-in { padding: var(--space-8) var(--space-4) 64px; }
   .nf-hero .nf-photo { height: 300px; }
   .nf-h1 { font-size: 56px; } .nf-h2 { font-size: 40px; }
   .nf-section { padding: 64px var(--space-4); }
+  .nf-section-tight { padding-top: 48px; padding-bottom: 48px; }
   .nf-page-hero { padding: var(--space-8) var(--space-4) 0; }
   .nf-nav { padding: 0 var(--space-4); gap: var(--space-4); }
   .nf-nav ul { display: none; }
