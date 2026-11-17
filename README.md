@@ -42,3 +42,9 @@ La tienda está desactivada: no aparece en el menú, el pie, la portada ni el si
 
 La web no carga nada de terceros: las fuentes están en `assets/fonts/` y el mapa de contacto es una imagen fija (`assets/img/mapa.webp`, © OpenStreetMap) que enlaza a Google Maps. Por eso no necesita banner de cookies. Si se añade algo externo (analítica, mapas embebidos, vídeos), revisar `/privacidad/`.
 - `tools/make_placeholders.py`: regenera las imágenes de muestra de las clases.
+
+## Funciones
+
+- **«¿Atendemos llamadas ahora?»** bajo cada horario de llamadas. Se calcula a partir de esa misma lista, así que solo hay que cambiar las horas en el HTML.
+- **Horario imprimible** en un folio A4 apaisado, con el botón «Imprimir horario» en `/horario/`.
+- **Imagen para compartir el Horario** (`assets/img/og-horario.jpg`): se genera desde los datos de la v2. Si cambia el horario, hay que regenerarla.
