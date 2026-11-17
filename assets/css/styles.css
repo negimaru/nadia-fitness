@@ -150,6 +150,22 @@ a:hover { color: #ff7cbd; }
 .nf-schedule .k-empty::before { content: none; }
 .nf-schedule th.k-slot, .nf-schedule thead th:first-child { position: sticky; left: 0; z-index: 1; background: var(--superficie); }
 @media (hover: hover) { .nf-schedule .k-dance:hover, .nf-schedule .k-fit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.45); } }
+.nf-filter { margin-bottom: var(--space-4); }
+.nf-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.nf-chip { --c: var(--tinta-suave); appearance: none; cursor: pointer; display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; padding: 0 14px; border-radius: var(--radius-pill); border: 1px solid var(--linea); background: transparent; color: var(--tinta); font: 600 13px/1 var(--font-sans); transition: background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease; }
+.nf-chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.nf-chip.k-dance { --c: var(--rosa); }
+.nf-chip.k-fit { --c: var(--violeta); }
+.nf-chip:hover { border-color: var(--c); }
+.nf-chip[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: var(--negro); box-shadow: 0 0 16px color-mix(in srgb, var(--c) 55%, transparent); }
+.nf-chip.k-dance[aria-pressed="true"] { color: var(--on-rosa); }
+.nf-chip[aria-pressed="true"]::before { background: currentColor; }
+@media (max-width: 800px) { .nf-chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 8px; scrollbar-width: none; } .nf-chips::-webkit-scrollbar { display: none; } .nf-chip { flex: none; } }
+.nf-schedule td { transition: transform .15s ease, box-shadow .15s ease, opacity .2s ease, filter .2s ease; }
+.nf-schedule.is-filtering td:not(.is-on) { opacity: .22; filter: grayscale(.6); }
+.nf-schedule.is-filtering td.is-on { transform: scale(1.03); z-index: 2; }
+.nf-schedule.is-filtering td.k-dance.is-on { background: rgba(242,0,133,.28); box-shadow: 0 0 0 1px var(--rosa), 0 0 22px rgba(242,0,133,.45); }
+.nf-schedule.is-filtering td.k-fit.is-on { background: rgba(199,125,191,.28); box-shadow: 0 0 0 1px var(--violeta), 0 0 22px rgba(199,125,191,.4); }
 .nf-legend { display: flex; gap: var(--space-4); align-items: center; }
 .nf-legend span { display: inline-flex; gap: var(--space-2); align-items: center; }
 .nf-legend i { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
