@@ -1,8 +1,8 @@
-// Nadia Fitness Dance Studio — interacciones mínimas, sin dependencias.
+// Nadia Fitness Dance Studio — minimal interactions, no dependencies.
 (function () {
   var WHATSAPP = '34654691336';
 
-  // Modo día / noche: sigue al sistema hasta que se elige uno con el botón
+  // Light / dark theme: follows the OS until one is chosen with the toggle
   var root = document.documentElement;
   var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
   var meta = document.querySelector('meta[name="theme-color"]');
@@ -25,7 +25,7 @@
     });
   });
 
-  // Menú móvil
+  // Mobile menu
   var btn = document.querySelector('.nf-menu');
   var menu = document.getElementById('menu');
   if (btn && menu) {
@@ -45,24 +45,25 @@
     });
   }
 
-  // Formulario → abre WhatsApp con el mensaje ya escrito
-  var form = document.getElementById('form-contacto');
+  // Contact form → opens WhatsApp with the message pre-filled
+  var form = document.getElementById('contact-form');
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var nombre = form.nombre.value.trim();
-      var tel = form.telefono.value.trim();
-      var clase = form.clase.value;
-      var msg = form.mensaje.value.trim();
-      var texto = '¡Hola! Soy ' + (nombre || '[nombre]') + '. Me interesa ' + clase + '.';
-      if (msg) texto += ' ' + msg;
-      if (tel) texto += ' Mi teléfono: ' + tel + '.';
-      window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+      var fields = form.elements;
+      var name = fields['contact-name'].value.trim();
+      var phone = fields['contact-phone'].value.trim();
+      var course = fields['contact-class'].value;
+      var note = fields['contact-message'].value.trim();
+      var text = '¡Hola! Soy ' + (name || '[nombre]') + '. Me interesa ' + course + '.';
+      if (note) text += ' ' + note;
+      if (phone) text += ' Mi teléfono: ' + phone + '.';
+      window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
     });
   }
 
-  // Horario: botones por clase (resaltan en la tabla) + vista por días en el móvil
-  var CLASES = [
+  // Schedule: per-class filter buttons (highlight in the table) + per-day view on mobile
+  var CLASSES = [
     ['dance-baby', 'Dance Baby', 'k-dance'],
     ['dance-intermedio', 'Dance Intermedio', 'k-dance'],
     ['dance-avanzado', 'Dance Avanzado', 'k-dance'],
@@ -84,10 +85,10 @@
     var table = scroll && scroll.querySelector('.nf-schedule');
     if (!table) return;
     var cells = table.querySelectorAll('td[data-c]');
-    var clasesLink = document.querySelector('.nf-nav a[href$="clases/"]');
-    var clasesHref = clasesLink ? clasesLink.getAttribute('href') : 'clases/';
+    var classesLink = document.querySelector('.nf-nav a[href$="clases/"]');
+    var classesHref = classesLink ? classesLink.getAttribute('href') : 'clases/';
 
-    // Datos leídos de la propia tabla
+    // Data read from the table itself
     var days = Array.prototype.map.call(table.querySelectorAll('thead th'), function (th) { return th.textContent.trim(); }).slice(1);
     var sessions = [];
     var slot = '', slotLeft = 0;
@@ -108,18 +109,18 @@
     });
     sessions.sort(function (x, y) { return mins(x.start) - mins(y.start); });
 
-    // Botones por clase
+    // Per-class buttons
     var status = el('p', 'sr-only'); status.setAttribute('aria-live', 'polite');
     var group = el('div', 'nf-picks');
     group.setAttribute('role', 'group');
     group.setAttribute('aria-label', 'Filtrar el horario por clase');
     var current = '';
 
-    // Vista móvil: pestañas por día + lista
+    // Mobile view: day tabs + list
     var agenda = el('div', 'nf-agenda');
     var tabs = el('div', 'nf-days'); tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', 'Día de la semana');
     var panel = el('div', 'nf-apanel'); panel.setAttribute('role', 'tabpanel'); panel.id = 'nf-apanel-' + Math.random().toString(36).slice(2, 7);
-    var today = new Date().getDay(); // 0 domingo … 6 sábado
+    var today = new Date().getDay(); // 0 Sunday … 6 Saturday
     var todayIdx = today >= 1 && today <= days.length ? today - 1 : -1;
     var day = todayIdx >= 0 ? todayIdx : 0;
     var tabBtns = days.map(function (d, i) {
@@ -147,7 +148,7 @@
 
     function card(s, label) {
       var a = el('a', 'nf-acard ' + s.type);
-      a.href = clasesHref + '#' + s.c;
+      a.href = classesHref + '#' + s.c;
       var t = el('div', 'nf-atime');
       t.appendChild(el('b', null, s.start));
       t.appendChild(el('span', null, s.end));
@@ -196,7 +197,7 @@
       });
     }
 
-    // Deslizar a izquierda/derecha para cambiar de día
+    // Swipe left/right to change day
     var x0 = null, y0 = 0;
     panel.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
     panel.addEventListener('touchend', function (e) {
@@ -234,7 +235,7 @@
     }
 
     chip('', 'Todas');
-    CLASES.forEach(function (c) {
+    CLASSES.forEach(function (c) {
       if (table.querySelector('td[data-c="' + c[0] + '"]')) chip(c[0], c[1], c[2]);
     });
     bar.appendChild(group);
@@ -246,7 +247,7 @@
     status.textContent = '';
   });
 
-  // Año del pie
+  // Footer year
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 })();
