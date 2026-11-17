@@ -3,10 +3,10 @@
 Sitio estático multipágina (HTML + CSS + JS sin dependencias ni build), listo para GitHub Pages.
 
 ```
-/                 Inicio (resumen: clases, horario, pasos, tienda, contacto)
+/                 Inicio (resumen: clases, horario, pasos, contacto)
 /clases/          Una ficha por clase, con ancla (#aquafitness, #powerhiit…)
 /horario/         Horario curso 26/27
-/tienda/          Camisetas + sorteo
+/tienda/          Apagada de momento: redirige a la portada
 /contacto/        Teléfono, horario de llamadas, formulario → WhatsApp, mapa
 404.html, robots.txt, sitemap.xml, .nojekyll
 assets/css/styles.css   Tokens + componentes del sistema de diseño
@@ -27,9 +27,12 @@ Para probar en local: `python3 -m http.server` en esta carpeta y abre `http://lo
 
 ## Pendiente (busca `TODO` en el código)
 
-- Aviso legal y Privacidad.
+- Aviso legal y Privacidad (`/aviso-legal/`, `/privacidad/`): rellenar titular, NIF y email (resaltados en la página) y quitar el `noindex` de ambas. Añadirlas al `sitemap.xml`.
 - Fotos reales: los huecos `.nf-photo` llevan un comentario `TODO`; mete un `<img>` dentro y se encaja solo.
 - Logo: `assets/img/logo.png` (PNG con fondo transparente). Si tenéis el original en SVG o en mayor resolución, sustituidlo.
 - Confirmar que el 654 691 336 tiene WhatsApp (botón flotante y formulario usan `wa.me/34654691336`).
-- Quitar el bloque del sorteo en `/tienda/` cuando termine.
 - Cookies: el mapa de Google y Google Fonts cargan recursos de terceros; si no queréis banner, auto-alojad las fuentes y cambiad el mapa por una imagen con enlace.
+
+## Tienda (apagada)
+
+La tienda está desactivada: no aparece en el menú, el pie, la portada ni el sitemap, y `/tienda/` redirige a la portada. Para recuperarla, la versión completa está en el commit `78494a6` (`git show 78494a6:tienda/index.html`, y la sección de la portada en `git show 78494a6:index.html`). Las fotos (`tirantes.jpg`, `ninas.jpg`) siguen en `assets/img/`.
