@@ -27,7 +27,6 @@ Para probar en local: `python3 -m http.server` en esta carpeta y abre `http://lo
 
 ## Pendiente (busca `TODO` en el código)
 
-- Dirección exacta (contacto + JSON-LD) y el mapa: sustituye el iframe por el de Google Maps → Compartir → Insertar mapa.
 - URLs de Instagram y TikTok, Aviso legal y Privacidad.
 - Fotos reales: los huecos `.nf-photo` llevan un comentario `TODO`; mete un `<img>` dentro y se encaja solo.
 - Logo: `assets/img/logo.png` (PNG con fondo transparente). Si tenéis el original en SVG o en mayor resolución, sustituidlo.
