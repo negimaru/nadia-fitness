@@ -358,6 +358,43 @@ a:hover { color: var(--pink-hover); }
 .nf-info b { display: block; font: 700 13px/18px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; }
 .nf-info span { color: var(--ink-muted); font-size: 15px; line-height: 22px; }
 
+/* ---------- Call status ---------- */
+.nf-call-status { display: flex; align-items: center; gap: var(--space-2); margin: var(--space-4) 0 0; max-width: 360px; font: 600 14px/20px var(--font-sans); color: var(--ink-muted); }
+.nf-call-status:empty { display: none; }
+.nf-call-status::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-muted); flex: none; }
+.nf-call-status.is-open { color: var(--ink); }
+.nf-call-status.is-open::before { background: #2F9E5B; }
+
+/* ---------- Print: the timetable on one A4 sheet ---------- */
+.nf-print-btn { display: none; }
+.nf-print-only { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .nf-nav, .nf-footer, .nf-fab, .nf-mbar, .nf-filter, .nf-agenda, .nf-print-btn, .skip, .nf-section-alt, .nf-toolbar > .nf-small { display: none !important; }
+  .nf-print-only { display: block !important; margin: 0 0 4mm; font: 600 11pt/1.4 var(--font-sans); }
+  .nf-page-hero { padding: 0 0 4mm; }
+  .nf-page-hero .nf-h1 { font-size: 32pt; color: #000; }
+  .nf-page-hero .nf-lead { color: #000; font-size: 11pt; margin-top: 2mm; }
+  .nf-pink { color: #000 !important; }
+  .nf-section { padding: 4mm 0 0 !important; }
+  .has-agenda > .nf-sched-scroll { display: block !important; }
+  .nf-sched-wrap { background: #fff !important; border: 1px solid #000; min-width: 0 !important; padding: 2mm; }
+  .nf-schedule { color: #000; }
+  .nf-schedule thead th { color: #000; font-size: 13pt; }
+  .nf-schedule th.k-slot { background: #fff !important; color: #000; }
+  .nf-schedule { border-spacing: 2px; }
+  .nf-schedule td { background: #fff !important; box-shadow: none !important; transform: none !important; opacity: 1 !important; filter: none !important; height: auto !important; padding: 4px 6px !important; border: 1px solid #bbb; border-radius: 4px; }
+  .nf-schedule thead th { padding: 2px 4px 6px; }
+  .nf-page-hero .nf-lead { display: none; }
+  .nf-schedule td::before { display: none; }
+  .nf-schedule .k-dance { border-left: 3px solid #000; }
+  .nf-schedule .k-fit { border-left: 3px dashed #000; }
+  .nf-schedule td b, .nf-schedule td time, .nf-schedule td small { color: #000 !important; font-size: 9pt; }
+  .nf-legend i.k-dance { background: #000; } .nf-legend i.k-fit { box-shadow: inset 0 0 0 3px #000; }
+  .nf-legend .nf-small { color: #000; }
+}
+
 /* ---------- Form errors ---------- */
 .nf-field-error { margin: 0; font: 600 14px/20px var(--font-sans); color: var(--pink-text); }
 .nf-field input[aria-invalid="true"] { border-color: var(--pink); border-width: 2px; }
