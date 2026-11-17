@@ -247,6 +247,17 @@
     status.textContent = '';
   });
 
+  // "Volver" on legal pages: go back if we came from this site, otherwise the link's href (home)
+  Array.prototype.forEach.call(document.querySelectorAll('[data-back]'), function (a) {
+    a.addEventListener('click', function (e) {
+      var ref = document.referrer;
+      if (ref && ref.indexOf(location.origin) === 0 && ref !== location.href && history.length > 1) {
+        e.preventDefault();
+        history.back();
+      }
+    });
+  });
+
   // Footer year
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
