@@ -18,6 +18,7 @@
   --photo: radial-gradient(60% 55% at 50% 30%, var(--pink) 0%, var(--purple) 45%, var(--bg) 100%);
   --photo-aqua: radial-gradient(70% 60% at 50% 20%, var(--violet) 0%, var(--purple) 55%, var(--bg) 100%);
   --photo-bar: linear-gradient(var(--pink), var(--violet), var(--purple)); --photo-glow: var(--glow-pink);
+  --map-filter: invert(.92) hue-rotate(180deg) saturate(.6) brightness(.95);
   color-scheme: dark;
   --container-max: 1200px; --nav-height: 76px; --skew: -10deg;
 }
@@ -35,6 +36,7 @@
     --photo: radial-gradient(55% 45% at 50% 22%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 100%), radial-gradient(90% 75% at 50% 15%, #ff8cc6 0%, rgba(255,140,198,0) 70%), linear-gradient(170deg, #ffd9ec 0%, #fbc4e0 50%, #f3d3ec 100%);
   --photo-aqua: radial-gradient(55% 45% at 50% 22%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 100%), radial-gradient(90% 75% at 50% 15%, #c9a6f0 0%, rgba(201,166,240,0) 70%), linear-gradient(170deg, #e7dcfb 0%, #d9ccf5 50%, #f0dcf0 100%);
   --photo-bar: linear-gradient(#ffffff, #ff8cc6 60%, #e05aa5); --photo-glow: 0 0 14px rgba(255,255,255,.9), 0 0 24px rgba(240,84,146,.45);
+  --map-filter: none;
   color-scheme: light;
   }
 }
@@ -49,6 +51,7 @@
   --photo: radial-gradient(55% 45% at 50% 22%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 100%), radial-gradient(90% 75% at 50% 15%, #ff8cc6 0%, rgba(255,140,198,0) 70%), linear-gradient(170deg, #ffd9ec 0%, #fbc4e0 50%, #f3d3ec 100%);
   --photo-aqua: radial-gradient(55% 45% at 50% 22%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 100%), radial-gradient(90% 75% at 50% 15%, #c9a6f0 0%, rgba(201,166,240,0) 70%), linear-gradient(170deg, #e7dcfb 0%, #d9ccf5 50%, #f0dcf0 100%);
   --photo-bar: linear-gradient(#ffffff, #ff8cc6 60%, #e05aa5); --photo-glow: 0 0 14px rgba(255,255,255,.9), 0 0 24px rgba(240,84,146,.45);
+  --map-filter: none;
   color-scheme: light;
 }
 
@@ -249,6 +252,17 @@ a:hover { color: var(--pink-hover); }
 .nf-legend i.k-dance { background: var(--pink); box-shadow: 0 0 8px rgba(242,0,133,.7); }
 .nf-legend i.k-fit { background: var(--violet); box-shadow: 0 0 8px rgba(199,125,191,.6); }
 
+/* ---------- About ---------- */
+.nf-about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-12); align-items: center; }
+.nf-about-photo { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--glow-purple); }
+.nf-about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; }
+.nf-about-text { color: var(--ink-muted); margin: var(--space-4) 0 0; max-width: 620px; }
+.nf-rating { display: inline-flex; align-items: center; gap: var(--space-3); margin-top: var(--space-6); padding: 10px 18px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color .15s ease; }
+.nf-rating:hover { color: var(--ink); border-color: var(--pink); }
+.nf-rating-score { font: italic 800 28px/1 var(--font-display); }
+.nf-rating-stars { color: #f5b301; letter-spacing: 2px; font-size: 18px; }
+.nf-rating-text { font: 600 13px/18px var(--font-sans); color: var(--ink-muted); }
+
 /* ---------- Call hours ---------- */
 .nf-calls { display: grid; gap: var(--space-2); max-width: 420px; margin: 0; }
 .nf-calls div { display: grid; grid-template-columns: 150px 1fr; gap: var(--space-3); align-items: center; }
@@ -289,8 +303,15 @@ a:hover { color: var(--pink-hover); }
 .nf-field label { font: 700 13px/18px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; }
 .nf-field input, .nf-field select, .nf-field textarea { min-height: 48px; padding: 0 var(--space-4); border: 1px solid var(--ink-muted); border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); font: 500 16px/24px var(--font-sans); }
 .nf-field textarea { padding: 12px var(--space-4); resize: vertical; min-height: 96px; }
-.nf-map { margin-top: var(--space-6); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; background: var(--surface); }
-.nf-map iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(.3) contrast(1.05); }
+.nf-map { position: relative; margin: var(--space-6) 0 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 9; background: var(--surface); }
+.nf-map-link { position: absolute; inset: 0; display: block; color: var(--on-pink); text-decoration: none; }
+.nf-map img { width: 100%; height: 100%; object-fit: cover; display: block; filter: var(--map-filter); transition: transform .3s ease; }
+.nf-map-link:hover img { transform: scale(1.03); }
+.nf-map-pin { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -26px 0 0 -13px; background: var(--pink); border: 3px solid var(--white); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: var(--glow-pink); }
+.nf-map-cta { position: absolute; right: var(--space-4); bottom: var(--space-4); background: var(--pink); color: var(--on-pink); border-radius: var(--radius-pill); padding: 8px 16px; font: italic 800 18px/1 var(--font-display); text-transform: uppercase; box-shadow: var(--glow-pink); }
+.nf-map-link:hover .nf-map-cta { color: var(--on-pink); }
+.nf-map figcaption { position: absolute; left: 0; bottom: 0; padding: 2px 8px; font-size: 11px; line-height: 16px; background: rgba(255,255,255,.75); color: #333; border-top-right-radius: 6px; }
+.nf-map figcaption a { color: inherit; }
 .nf-info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-12); }
 .nf-info > div { display: flex; gap: var(--space-3); align-items: flex-start; }
 .nf-info svg { width: 24px; height: 24px; flex: none; color: var(--pink-text); }
@@ -323,7 +344,9 @@ a:hover { color: var(--pink-hover); }
   .nf-class .nf-photo { min-height: 200px; }
 }
 @media (max-width: 800px) {
-  .nf-hero-in, .nf-contact, .nf-promo, .nf-shop, .nf-steps, .nf-info, .nf-cta { grid-template-columns: 1fr; }
+  .nf-hero-in, .nf-contact, .nf-promo, .nf-shop, .nf-steps, .nf-info, .nf-cta, .nf-about { grid-template-columns: 1fr; }
+  .nf-about { gap: var(--space-8); }
+  .nf-about-photo { aspect-ratio: 1 / 1; }
   .nf-hero-in { padding: var(--space-8) var(--space-4) 64px; }
   .nf-hero .nf-photo { height: 300px; }
   .nf-h1 { font-size: 56px; } .nf-h2 { font-size: 40px; }
