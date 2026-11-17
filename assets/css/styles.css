@@ -355,6 +355,10 @@ a:hover { color: var(--pink-hover); }
 .nf-info span { color: var(--ink-muted); font-size: 15px; line-height: 22px; }
 
 /* ---------- Legal pages ---------- */
+.nf-back { margin: 0 0 var(--space-4); }
+.nf-back-end { margin: var(--space-12) 0 0; padding-top: var(--space-6); border-top: 1px solid var(--line); }
+.nf-back-link { display: inline-flex; gap: var(--space-2); font: 700 14px/18px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; color: var(--pink-text); text-decoration: none; }
+.nf-back-link:hover { text-decoration: underline; }
 .nf-prose > * { max-width: 760px; }
 .nf-prose h2 { font: italic 800 28px/1.1 var(--font-display); text-transform: uppercase; margin: var(--space-12) 0 var(--space-3); }
 .nf-prose h2:first-of-type { margin-top: 0; }
