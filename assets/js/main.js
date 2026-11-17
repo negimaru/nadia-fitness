@@ -2,6 +2,29 @@
 (function () {
   var WHATSAPP = '34654691336';
 
+  // Modo día / noche: sigue al sistema hasta que se elige uno con el botón
+  var root = document.documentElement;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+  var meta = document.querySelector('meta[name="theme-color"]');
+  function stored() { try { return localStorage.getItem('nf-theme'); } catch (e) { return null; } }
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    if (meta) meta.setAttribute('content', t === 'light' ? '#fff8fb' : '#050505');
+    Array.prototype.forEach.call(document.querySelectorAll('.nf-theme'), function (b) {
+      b.setAttribute('aria-label', t === 'light' ? 'Cambiar a modo noche' : 'Cambiar a modo día');
+      b.setAttribute('title', t === 'light' ? 'Modo noche' : 'Modo día');
+    });
+  }
+  applyTheme(stored() || (mq && mq.matches ? 'light' : 'dark'));
+  if (mq && mq.addEventListener) mq.addEventListener('change', function (e) { if (!stored()) applyTheme(e.matches ? 'light' : 'dark'); });
+  Array.prototype.forEach.call(document.querySelectorAll('.nf-theme'), function (b) {
+    b.addEventListener('click', function () {
+      var t = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('nf-theme', t); } catch (e) {}
+      applyTheme(t);
+    });
+  });
+
   // Menú móvil
   var btn = document.querySelector('.nf-menu');
   var menu = document.getElementById('menu');
@@ -57,7 +80,7 @@
     status.className = 'sr-only';
     status.setAttribute('aria-live', 'polite');
     var group = document.createElement('div');
-    group.className = 'nf-chips';
+    group.className = 'nf-picks';
     group.setAttribute('role', 'group');
     group.setAttribute('aria-label', 'Resaltar en el horario');
 
@@ -78,7 +101,7 @@
     function chip(slug, label, type) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'nf-chip' + (type ? ' ' + type : '');
+      b.className = 'nf-pick' + (type ? ' ' + type : '');
       b.setAttribute('data-c', slug);
       b.textContent = label;
       b.addEventListener('click', function () {
