@@ -20,7 +20,7 @@ CLASSES=[
  ("powerhiit","PowerHIIT","Fitness",(199,125,191)),
  ("aquafitness","Aquafitness","Fitness · Agua",(199,125,191)),
 ]
-BG=(26,18,25)        # matches --surface in the dark theme: calm, flat, no glow
+BG=(37,32,37)        # matches --surface (#252025) in the dark theme: calm, flat, no glow
 MUTED=(191,184,188)  # --ink-muted
 logo=Image.open("assets/img/logo.png").convert("RGBA")
 for slug,name,tag,color in CLASSES:
