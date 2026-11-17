@@ -160,6 +160,12 @@ a:hover { color: var(--pink-hover); }
 
 /* ---------- Class cards ---------- */
 .nf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); }
+/* 7 classes = 4 dance + 3 fitness: two full rows instead of a 4+3 grid with a gap */
+.nf-grid-classes { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.nf-grid-classes > :nth-child(-n+4) { grid-column: span 3; }
+.nf-grid-classes > :nth-child(n+5) { grid-column: span 4; }
+@media (max-width: 1020px) { .nf-grid-classes > :nth-child(-n+4) { grid-column: span 6; } }
+@media (max-width: 700px) { .nf-grid-classes > * { grid-column: 1 / -1 !important; } }
 .nf-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; scroll-margin-top: calc(var(--nav-height) + 24px); }
 .nf-card .nf-photo { border-radius: 0; height: 170px; }
 .nf-card-body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); flex: 1; }
