@@ -401,6 +401,7 @@ a:hover { color: var(--pink-hover); }
   .nf-nav ul { display: none; }
   .nf-nav ul.is-open { display: flex; flex-direction: column; gap: 0; position: absolute; top: var(--nav-height); left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: var(--space-2) var(--space-4) var(--space-4); }
   .nf-nav ul.is-open a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .nf-nav ul.is-open li:last-child a { border-bottom: 0; }
   .nf-menu { display: grid; margin-left: 0; order: 2; }
   .nf-theme { margin-left: auto; }
   .nf-nav-cta { display: none; }
