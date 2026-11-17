@@ -48,14 +48,27 @@
   // Contact form → opens WhatsApp with the message pre-filled
   var form = document.getElementById('contact-form');
   if (form) {
+    form.setAttribute('novalidate', '');
+    var nameInput = form.elements['contact-name'];
+    var nameError = document.getElementById('contact-name-error');
+    function clearNameError() { nameInput.removeAttribute('aria-invalid'); nameError.hidden = true; }
+    nameInput.addEventListener('input', function () { if (nameInput.value.trim()) clearNameError(); });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var fields = form.elements;
       var name = fields['contact-name'].value.trim();
+      if (!name) {
+        // Our own message next to the field, announced and focused (not only the browser bubble)
+        nameInput.setAttribute('aria-invalid', 'true');
+        nameError.hidden = false;
+        nameInput.focus();
+        return;
+      }
+      clearNameError();
       var phone = fields['contact-phone'].value.trim();
       var course = fields['contact-class'].value;
       var note = fields['contact-message'].value.trim();
-      var text = '¡Hola! Soy ' + (name || '[nombre]') + '. Me interesa ' + course + '.';
+      var text = '¡Hola! Soy ' + name + '. Me interesa ' + course + '.';
       if (note) text += ' ' + note;
       if (phone) text += ' Mi teléfono: ' + phone + '.';
       window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
@@ -256,6 +269,15 @@
         history.back();
       }
     });
+  });
+
+  // Links that open a new tab say so to screen readers
+  Array.prototype.forEach.call(document.querySelectorAll('a[target="_blank"]'), function (a) {
+    if (a.querySelector('.sr-only')) return;
+    var s = document.createElement('span');
+    s.className = 'sr-only';
+    s.textContent = ' (se abre en otra pestaña)';
+    a.appendChild(s);
   });
 
   // Footer year
