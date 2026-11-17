@@ -21,6 +21,7 @@
   --map-filter: invert(.92) hue-rotate(180deg) saturate(.6) brightness(.95);
   color-scheme: dark;
   --container-max: 1200px; --nav-height: 76px; --skew: -10deg;
+  --section-y: 80px; --section-y-tight: 56px; --head-gap: 32px;
 }
 
 /* Light theme: applied when the OS prefers light (and dark was not chosen), or when light is chosen with the toggle */
@@ -137,7 +138,7 @@ a:hover { color: var(--pink-hover); }
 /* ---------- Hero ---------- */
 .nf-hero { position: relative; overflow: hidden; }
 .nf-hero::before { content: ""; position: absolute; right: -10%; top: -20%; width: 70%; height: 120%; background: radial-gradient(closest-side, var(--halo), transparent); opacity: .7; pointer-events: none; }
-.nf-hero-in { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-12); align-items: center; padding: var(--space-12) var(--space-8) var(--space-24); max-width: var(--container-max); margin: 0 auto; position: relative; }
+.nf-hero-in { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-12); align-items: center; padding: 40px var(--space-8) var(--section-y); max-width: var(--container-max); margin: 0 auto; position: relative; }
 .nf-hero .nf-photo { height: 520px; box-shadow: var(--glow-purple); }
 .nf-actions { margin-top: var(--space-8); }
 .nf-page-hero { padding: var(--space-12) var(--space-8) 0; position: relative; overflow: hidden; }
@@ -145,10 +146,17 @@ a:hover { color: var(--pink-hover); }
 .nf-page-hero .nf-wrap { position: relative; }
 
 /* ---------- Sections ---------- */
-.nf-section { padding: var(--space-24) var(--space-8); scroll-margin-top: var(--nav-height); }
+.nf-hero-tags { margin-top: var(--space-6); }
+.nf-toolbar { justify-content: space-between; margin-bottom: var(--space-6); }
+.nf-jump { margin-bottom: var(--head-gap); }
+.nf-jump .nf-chip { text-decoration: none; height: 34px; }
+.nf-class-actions { margin-top: var(--space-2); }
+.nf-contact-phone { margin-bottom: var(--space-8); }
+.nf-section { padding: var(--section-y) var(--space-8); scroll-margin-top: var(--nav-height); }
+.nf-page-hero + .nf-section { padding-top: calc(var(--head-gap) + 16px); }
 .nf-section-alt { background: var(--bg-alt); }
 .nf-wrap { max-width: var(--container-max); margin: 0 auto; }
-.nf-section-head { margin-bottom: var(--space-12); display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-8); flex-wrap: wrap; }
+.nf-section-head { margin-bottom: var(--head-gap); display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-8); flex-wrap: wrap; }
 
 /* ---------- Class cards ---------- */
 .nf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); }
@@ -263,6 +271,18 @@ a:hover { color: var(--pink-hover); }
 .nf-rating-stars { color: #f5b301; letter-spacing: 2px; font-size: 18px; }
 .nf-rating-text { font: 600 13px/18px var(--font-sans); color: var(--ink-muted); }
 
+.nf-about-teaser { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-8); align-items: center; }
+.nf-about-avatar { width: 136px; height: 136px; border-radius: 50%; object-fit: cover; object-position: 50% 22%; box-shadow: 0 0 0 3px var(--pink), var(--glow-pink); }
+.nf-about-teaser .nf-about-text { margin-top: var(--space-2); }
+.nf-about-side { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-3); }
+.nf-about-side .nf-rating { margin-top: 0; }
+.nf-teach { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); }
+.nf-teach ul { list-style: none; margin: var(--space-3) 0 0; padding: 0; }
+.nf-teach li { display: flex; justify-content: space-between; gap: var(--space-4); padding: 12px 0; border-top: 1px solid var(--line); }
+.nf-teach li a { color: var(--ink); text-decoration: none; font-weight: 600; }
+.nf-teach li a:hover { color: var(--pink-text); }
+.nf-teach li span { color: var(--ink-muted); font-size: 14px; }
+
 /* ---------- Call hours ---------- */
 .nf-calls { display: grid; gap: var(--space-2); max-width: 420px; margin: 0; }
 .nf-calls div { display: grid; grid-template-columns: 150px 1fr; gap: var(--space-3); align-items: center; }
@@ -271,7 +291,7 @@ a:hover { color: var(--pink-hover); }
 .nf-time { display: block; background: var(--pill); color: var(--on-pill); border-radius: var(--radius-sm); padding: 6px 12px; text-align: center; font: italic 800 22px/1 var(--font-display); }
 
 /* ---------- Steps ---------- */
-.nf-section-tight { padding-top: 64px; padding-bottom: 64px; }
+.nf-section-tight { padding-top: var(--section-y-tight); padding-bottom: var(--section-y-tight); }
 .nf-h2-sm { font-size: 40px; }
 .nf-steps-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--space-12); align-items: start; }
 .nf-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); margin: 0; padding: 0; list-style: none; }
@@ -303,6 +323,7 @@ a:hover { color: var(--pink-hover); }
 /* ---------- Contact ---------- */
 .nf-contact { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start; }
 .nf-form { display: grid; gap: var(--space-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-8); }
+.nf-form > p { margin: 0; }
 .nf-field { display: grid; gap: var(--space-1); }
 .nf-field label { font: 700 13px/18px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; }
 .nf-field input, .nf-field select, .nf-field textarea { min-height: 48px; padding: 0 var(--space-4); border: 1px solid var(--ink-muted); border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); font: 500 16px/24px var(--font-sans); }
@@ -316,7 +337,7 @@ a:hover { color: var(--pink-hover); }
 .nf-map-link:hover .nf-map-cta { color: var(--on-pink); }
 .nf-map figcaption { position: absolute; left: 0; bottom: 0; padding: 2px 8px; font-size: 11px; line-height: 16px; background: rgba(255,255,255,.75); color: #333; border-top-right-radius: 6px; }
 .nf-map figcaption a { color: inherit; }
-.nf-info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-12); }
+.nf-info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: calc(var(--head-gap) + 16px); }
 .nf-info > div { display: flex; gap: var(--space-3); align-items: flex-start; }
 .nf-info svg { width: 24px; height: 24px; flex: none; color: var(--pink-text); }
 .nf-info p { margin: 0; }
@@ -333,7 +354,8 @@ a:hover { color: var(--pink-hover); }
 .nf-placeholder { background: var(--pink-soft); color: var(--pink-text); border: 1px dashed var(--pink); border-radius: 4px; padding: 0 6px; font-weight: 700; }
 
 /* ---------- Footer + floating button ---------- */
-.nf-footer { background: var(--bg); border-top: 1px solid var(--line); padding: var(--space-12) var(--space-8) 96px; }
+.nf-footer { background: var(--bg); border-top: 1px solid var(--line); padding: var(--space-12) var(--space-8) 80px; }
+.nf-footer p { margin: 0; }
 .nf-footer-in { display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
 .nf-footer a { color: var(--ink-muted); }
 .nf-footer a:hover { color: var(--pink-text); }
@@ -353,11 +375,15 @@ a:hover { color: var(--pink-hover); }
   .nf-h2-sm { font-size: 32px; }
   .nf-about { gap: var(--space-8); }
   .nf-about-photo { aspect-ratio: 1 / 1; }
-  .nf-hero-in { padding: var(--space-8) var(--space-4) 64px; }
+  .nf-about-teaser, .nf-teach { grid-template-columns: 1fr; }
+  .nf-about-teaser { gap: var(--space-4); }
+  .nf-about-avatar { width: 104px; height: 104px; }
+  .nf-about-side { align-items: flex-start; }
+  .nf-hero-in { padding: var(--space-6) var(--space-4) var(--section-y); }
   .nf-hero .nf-photo { height: 300px; }
   .nf-h1 { font-size: 56px; } .nf-h2 { font-size: 40px; }
-  .nf-section { padding: 64px var(--space-4); }
-  .nf-section-tight { padding-top: 48px; padding-bottom: 48px; }
+  :root { --section-y: 56px; --section-y-tight: 40px; --head-gap: 24px; }
+  .nf-section { padding: var(--section-y) var(--space-4); }
   .nf-page-hero { padding: var(--space-8) var(--space-4) 0; }
   .nf-nav { padding: 0 var(--space-4); gap: var(--space-4); }
   .nf-nav ul { display: none; }
