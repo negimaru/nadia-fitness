@@ -10,7 +10,7 @@ Sitio estático multipágina (HTML + CSS + JS sin dependencias ni build), listo 
 /contacto/        Teléfono, horario de llamadas, formulario → WhatsApp, mapa
 404.html, robots.txt, sitemap.xml, .nojekyll
 assets/css/styles.css   Tokens + componentes del sistema de diseño
-assets/css/fonts.css    Fuentes servidas desde la propia web (assets/fonts/)
+assets/css/styles.css   (incluye al principio las @font-face de assets/fonts/)
 assets/js/main.js       Menú móvil, formulario WhatsApp, año del pie
 ```
 
